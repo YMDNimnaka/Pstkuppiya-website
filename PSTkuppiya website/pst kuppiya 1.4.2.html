@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1st Semester Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+    /* ==================== BASE STYLES ==================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: "Roboto", sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #31065e, #042050);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 20px;
+        overflow-x: hidden;
+        animation: bgMove 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgMove {
+        0% { background: linear-gradient(135deg, #0e1184, #052763); }
+        50% { background: linear-gradient(135deg, #01062e, #2929e7); }
+        100% { background: linear-gradient(135deg, #0d0336, #0627cb); }
+    }
+
+    .container {
+        width: 95%;
+        max-width: 900px;
+        animation: fadeIn 1s ease-out;
+        padding-bottom: 40px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: 30px;
+        color: #ffffff;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    /* ==================== SUBJECT CARDS ==================== */
+    .subject {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(14px);
+        border-radius: 18px;
+        padding: 20px;
+        margin-bottom: 22px;
+        border: 1px solid rgba(255,255,255,0.25);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        transition: 0.4s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .subject-title {
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        letter-spacing: 0.5px;
+    }
+
+    .subject.active {
+        background: rgba(255,255,255,0.25);
+        transform: translateY(-5px) scale(1.03);
+    }
+
+    .subject.active .subject-title { color: #ffd700; }
+
+    .content { 
+        display: none; 
+        margin-top: 12px; 
+        animation: fadeIn 0.45s ease-in-out; 
+    }
+
+    .card {
+        background: rgba(255,255,255,0.15);
+        padding: 14px;
+        border-radius: 14px;
+        margin-bottom: 14px;
+        border: 1px solid rgba(255,255,255,0.2);
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateX(5px) scale(1.03);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    .card-title { 
+        font-weight: 500; 
+        margin-bottom: 8px; 
+        font-size: 16px; 
+        color: #fff; 
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 6px 14px;
+        margin: 4px 4px 0 0;
+        font-size: 13px;
+        font-weight: 500;
+        color: #fff;
+        background-color: rgba(0,0,0,0.35);
+        border: 1px solid #fff;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background-color: rgba(0,0,0,0.6);
+        transform: scale(1.08);
+    }
+
+    /* 🔥 NEW HIGHLIGHT BUTTON STYLE */
+    .btn-highlight {
+        border: 2px solid #ffcc00;
+        color: #ffea00;
+        background: rgba(0, 0, 0, 0.45);
+        box-shadow: 0 0 12px #ffcc00;
+    }
+
+    .btn-highlight:hover {
+        background: rgba(0, 0, 0, 0.8);
+        transform: scale(1.1);
+        box-shadow: 0 0 18px #ffdd22;
+    }
+
+    .sub-part { margin-left: 12px; margin-top: 6px; }
+
+    /* ==================== SHORTCUT DRIVE ==================== */
+    .shortcut-drive {
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(14px);
+        padding: 20px;
+        border-radius: 18px;
+        margin-bottom: 30px;
+        border: 1px solid rgba(255,255,255,0.25);
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .shortcut-drive h2 {
+        color: #ffd700;
+        margin-bottom: 12px;
+        font-size: 24px;
+    }
+
+    @keyframes fadeIn { 
+        from { opacity: 0; transform: translateY(12px); } 
+        to { opacity: 1; transform: translateY(0); } 
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+        text-align:center;
+        margin-top:30px;
+        padding:20px;
+        color:#ffffff;
+        font-size:14px;
+        border-top:1px solid rgba(255,255,255,0.25);
+        backdrop-filter: blur(10px);
+        background: rgba(0,0,0,0.15);
+        border-radius: 12px;
+    }
+
+    .footer a { color:#ffd700; text-decoration:none; }
+    .footer a:hover { text-decoration:underline; }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 1024px) {
+        h1 { font-size: 32px; }
+        .subject-title { font-size: 22px; }
+        .card-title { font-size: 15px; }
+        .btn { font-size: 12px; padding: 5px 12px; }
+        .subject { padding: 16px; border-radius: 16px; }
+        .card { padding: 12px; border-radius: 12px; }
+    }
+
+    @media (max-width: 768px) {
+        h1 { font-size: 28px; }
+        .subject-title { font-size: 20px; }
+        .card-title { font-size: 14px; }
+        .btn { font-size: 11px; padding: 4px 10px; }
+        .subject { padding: 14px; border-radius: 14px; }
+        .card { padding: 10px; border-radius: 10px; }
+    }
+
+    @media (max-width: 480px) {
+        h1 { font-size: 24px; }
+        .subject-title { font-size: 18px; }
+        .card-title { font-size: 13px; }
+        .btn { font-size: 10px; padding: 4px 8px; }
+        .subject { padding: 12px; }
+        .card { padding: 8px; border-radius: 8px; }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>1st Semester (SUSL Applied Science)</h1>
+
+<!-- SHORTCUT DRIVE LINKS -->
+<div class="shortcut-drive">
+    <h2>Shortcut Drive Links</h2>
+
+    <a href="https://drive.google.com/drive/folders/1YSuD8ySTAe8Vjkp6ZOWHyOEOLi-sEFuB?usp=sharing" class="btn">Physics</a>
+    <a href="https://drive.google.com/drive/folders/1f6ddEoF-P1QetOdQaKclrYE54D91ZFU3?usp=sharing" class="btn">Computer Science</a>
+    <a href="https://drive.google.com/drive/folders/1RPtmWTK5fXwTadBp1Flrd8v3_9Fms58A?usp=sharing" class="btn">Mathematics</a>
+    <a href="#" class="btn">Chemistry</a>
+
+    <!-- ⭐ NEW HIGHLIGHT PAST PAPERS BUTTON -->
+    <a href="https://drive.google.com/drive/folders/155LyD3VGMH51MwXfVJGRVr1fHdNn-4UI" class="btn btn-highlight">Past Papers</a>
+</div>
+
+<!-- YOUR ORIGINAL CODE BELOW (UNCHANGED) -->
+
+<!-- PHYSICS -->
+<div class="subject" onclick="toggle(this)">
+    <div class="subject-title">Physics</div>
+    <div class="content">
+        <div class="card">
+            <div class="card-title">Mechanics</div>
+            <div class="sub-part">
+                <a href="https://drive.google.com/drive/folders/1htcq0iaSItIA58L8qB0cKPVMIvvTYQb4?usp=sharing" class="btn">Lecture Notes</a>
+                <a href="#" class="btn">Assignments</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Properties of Matter</div>
+            <div class="sub-part">
+                <a href="https://drive.google.com/drive/folders/1CJI3a9ImdMtYSMJIdR-Uj6h1YiSUprZq?usp=sharing" class="btn">Notes</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">LAB</div>
+            <div class="sub-part">
+                <a href="https://drive.google.com/drive/folders/1T0nKE1spE8C9eqyuAgzlHGVH1Dnv9mPS?usp=sharing" class="btn">Notes</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Electricity & Magnetism</div>
+            <div class="sub-part">
+                <a href="https://drive.google.com/drive/folders/1CJI3a9ImdMtYSMJIdR-Uj6h1YiSUprZq?usp=sharing" class="btn">Notes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- COMPUTER SCIENCE -->
+<div class="subject" onclick="toggle(this)">
+    <div class="subject-title">Computer Science</div>
+    <div class="content">
+        <div class="card">
+            <div class="card-title">Structured Programming (C)</div>
+            <div class="sub-part">
+                <a href="https://drive.google.com/drive/folders/1WI3BlxeL9Coc3tQDmdKYLLZxHZZFzY7K?usp=sharing" class="btn">Lecture Notes</a>
+                <a href="https://drive.google.com/drive/u/2/folders/15xz9r9Gwy88V9rRY1mWn7fAUrLIk3nyF" class="btn">Assignments upload link</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Web Design Lab</div>
+            <div class="sub-part">
+                <a href="https://drive.google.com/drive/u/0/folders/1_IXkQQpTJzOKKdfbNLbftAll2q5Zw_HZ" class="btn">Lecture Notes</a>
+                <a href="https://drive.google.com/drive/u/0/folders/1lgX0Cwv33pqk5asT6ga40ZhBDlDrdjy6" class="btn">Assignments upload link & Labsheets</a>
+                <a href="https://drive.google.com/drive/folders/14Q9AnPFrKZOK9PnLFfBYsytzoP6G5PRt?usp=sharing" class="btn">Our Notes</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Computer System Organization</div>
+            <div class="sub-part">
+                <a href="#" class="btn">Lecture Notes</a>
+                <a href="#" class="btn">Assignments</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MATHEMATICS -->
+<div class="subject" onclick="toggle(this)">
+    <div class="subject-title">Mathematics</div>
+    <div class="content">
+        <div class="card">
+            <div class="card-title">Calculus & Differential Equations</div>
+            <div class="sub-part">
+                <a href="https://drive.google.com/drive/folders/1RPtmWTK5fXwTadBp1Flrd8v3_9Fms58A?usp=sharing" class="btn">Notes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CHEMISTRY -->
+<div class="subject" onclick="toggle(this)">
+    <div class="subject-title">Chemistry</div>
+    <div class="content">
+        <div class="card">
+            <div class="card-title">Chemistry Notes</div>
+            <div class="sub-part">
+                <a href="https://drive.google.com/drive/folders/1vcLUAUbFX4yFyodrTKrWdECSNqQSnrdF?usp=sharing" class="btn">lecture slides</a>
+                <a href="https://drive.google.com/drive/folders/1USPgP3gsl2511_TrZuKBwc7TcW_iy_-5?usp=sharing" class="btn">fULL Drive Link</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>&copy; 2025 1st Semester Portal. All Rights Reserved.</p>
+    <p>
+        Created & concept by: <a href="YmDinethnimnaka@gmail.com">Dineth</a><br>
+        Contributors:
+        <a href="kisarabandara@gmail.com">Kisara</a>,
+        <a href="dinodh2004@gmail.com">Dinod</a>,
+        <a href="kesaranethmina04@gmail.com">Kesara</a>,
+        <a href="khtnimneth@gmail@gmail.com">Tharusha</a>,
+        <a href="dinuthliyanage22@gmail.com">Dinuth</a>
+        <a href="mailto:creator2@example.com">Dasun</a>
+    </p>
+</div>
+
+</div>
+
+<script>
+function toggle(section) {
+    const content = section.querySelector(".content");
+    const isVisible = content.style.display === "block";
+
+    document.querySelectorAll(".subject").forEach(s => {
+        s.classList.remove("active");
+        s.querySelector(".content").style.display = "none";
+    });
+
+    if (!isVisible) {
+        content.style.display = "block";
+        section.classList.add("active");
+    }
+}
+</script>
+
+</body>
+</html>
